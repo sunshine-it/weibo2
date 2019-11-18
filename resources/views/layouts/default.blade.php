@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>@yield('title', 'Weibo2 App')</title>
-    <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
