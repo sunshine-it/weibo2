@@ -9,6 +9,17 @@ use Auth;
 // 用户控制器类
 class UsersController extends Controller
 {
+    // 权限系统 构造器方法，当一个类对象被创建之前该方法将会被调用
+    public function __construct()
+    {
+        // middleware 方法接收两个参数，第一个为中间件的名称，第二个为要进行过滤的动作
+        // 使用中间件来过滤未登录用户的 edit, update 动作
+        $this->middleware('auth', [
+            'except' => ['show', 'create', 'store']
+        ]);
+        // 只让未登录用户访问注册页面
+        $this->middleware('guest', ['only' => ['create']]);
+    }
     // 创建用户
     public function create() {
         return view('users.create');
@@ -41,11 +52,15 @@ class UsersController extends Controller
     // 编辑表单
     public function edit(User $user)
     {
+        // 授权策略 authorize 方法接收两个参数，第一个为授权策略的名称，第二个为进行授权验证的数据
+        $this->authorize('update', $user);
         return view('users.edit', compact('user'));
     }
     // 更新表单
     public function update(User $user, Request $request)
     {
+        // 授权策略 authorize 方法接收两个参数，第一个为授权策略的名称，第二个为进行授权验证的数据
+        $this->authorize('update', $user);
         $this->validate($request, [
             'name' => 'required|max:50',
             'password' => 'nullable|confirmed|min:6' // nullable，这意味着当用户提供空白密码时也会通过验证
