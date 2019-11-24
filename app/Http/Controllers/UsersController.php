@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Auth;
 
 // 用户控制器类
 class UsersController extends Controller
@@ -30,6 +31,8 @@ class UsersController extends Controller
             'email'=>$request->email,
             'password'=>bcrypt($request->password)
         ]);
+        // 注册后自动登录
+        Auth::login($user);
         // 设置闪存提示信息
         session()->flash('success', '欢迎，您将在这里开启一段新的旅程~');
         // 跳转到用户列表
