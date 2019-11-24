@@ -19,7 +19,20 @@ class UsersController extends Controller
     // 保存用户
     public function store(Request $request) {
         // 验证
-        $this->validate($request, ['name'=>'required|max:50', 'email'=>'required|email|unique:users|max:255', 'password'=>'required|confirmed|min:6']);
-        return;
+        $this->validate($request, [
+            'name'=>'required|max:50',
+            'email'=>'required|email|unique:users|max:255',
+            'password'=>'required|confirmed|min:6'
+        ]);
+        // 将用户提交且验证通过的数据保存进数据库
+        $user = User::create([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=>bcrypt($request->password)
+        ]);
+        // 设置闪存提示信息
+        session()->flash('success', '欢迎，您将在这里开启一段新的旅程~');
+        // 跳转到用户列表
+        return redirect()->route('users.show', [$user]);
     }
 }
