@@ -2,7 +2,8 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use App\Models\User;
-use Faker\Generator as Faker;
+// use Faker\Generator as Faker;
+use Faker\Factory as Factory;
 use Illuminate\Support\Str;
 
 /*
@@ -16,12 +17,16 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(User::class, function () {
+    $faker = Factory::create('zh_CN');
+    $date_time = $faker->date.' '.$faker->time;
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
         'remember_token' => Str::random(10),
+        'created_at' => $date_time,
+        'updated_at' => $date_time,
     ];
 });

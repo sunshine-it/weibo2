@@ -15,10 +15,17 @@ class UsersController extends Controller
         // middleware 方法接收两个参数，第一个为中间件的名称，第二个为要进行过滤的动作
         // 使用中间件来过滤未登录用户的 edit, update 动作
         $this->middleware('auth', [
-            'except' => ['show', 'create', 'store']
+            'except' => ['show', 'create', 'store', 'index']
         ]);
         // 只让未登录用户访问注册页面
         $this->middleware('guest', ['only' => ['create']]);
+    }
+    // 列出所有用户
+    public function index()
+    {
+        $users = User::paginate(10);
+        // 用户列表
+        return view('users.index', compact('users'));
     }
     // 创建用户
     public function create() {
