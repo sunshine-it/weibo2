@@ -18,7 +18,7 @@ use Illuminate\Support\Str;
 */
 
 $factory->define(User::class, function () {
-    $faker = Factory::create('zh_CN');
+    $faker = Faker\Factory::create('zh_CN');
     $date_time = $faker->date.' '.$faker->time;
     return [
         'name' => $faker->name,
