@@ -1,6 +1,6 @@
 <footer class="footer">
   <img class="brand-icon" src="https://cdn.learnku.com/uploads/sites/KDiyAbV0hj1ytHpRTOlVpucbLebonxeX.png">
-  <a href="/" target=_blank>
+  <a href="http://weibo2-19-11-30.herokuapp.com" target=_blank>
     刻意练习，每日精进
   </a>
 
