@@ -23,3 +23,7 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 // 微博相关的操作 创建和删除只需要两个动作
 Route::resource('statuses', 'StatusesController', ['only' => ['store', 'destroy']]);
+// 粉丝页面 关注人列表
+Route::get('/users/{user}/followings', 'UsersController@followings')->name('users.followings');
+// 粉丝列表
+Route::get('/users/{user}/followers', 'UsersController@followers')->name('users.followers');
